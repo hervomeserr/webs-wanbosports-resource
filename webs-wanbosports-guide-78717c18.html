@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>万博体育 · 平台知识指引</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(145deg, #fce4b8 0%, #f7c07a 45%, #f3a654 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .page-wrap {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* 主卡片容器 */
+        .knowledge-card {
+            background: #ffffff;
+            border-radius: 48px 48px 40px 40px;
+            box-shadow: 0 20px 40px -12px rgba(100, 60, 20, 0.25), 0 8px 24px rgba(0,0,0,0.06);
+            padding: 2.5rem 2.8rem;
+            transition: box-shadow 0.3s;
+        }
+
+        @media (max-width: 600px) {
+            .knowledge-card {
+                padding: 1.8rem 1.2rem;
+                border-radius: 32px;
+            }
+        }
+
+        /* 目录感网格布局 */
+        .directory-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem 1.8rem;
+            margin-top: 1.2rem;
+        }
+
+        @media (max-width: 740px) {
+            .directory-grid {
+                grid-template-columns: 1fr;
+                gap: 1.8rem;
+            }
+        }
+
+        /* 标题区 + 引导 */
+        .hero-tag {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            border-bottom: 2px solid #f7e4cd;
+            padding-bottom: 0.9rem;
+        }
+
+        .hero-tag h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #3f2a16;
+            background: #fff3e0;
+            display: inline-block;
+            padding: 0 1rem 0.2rem 1rem;
+            border-radius: 40px;
+            line-height: 1.3;
+            box-shadow: 0 2px 6px rgba(200, 120, 40, 0.1);
+        }
+
+        .hero-tag .badge {
+            background: #eedcc7;
+            color: #4b311b;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .description p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #2f2419;
+            margin: 1.1rem 0 0.6rem 0;
+        }
+
+        .description a {
+            color: #b55a2a;
+            font-weight: 600;
+            text-decoration: none;
+            border-bottom: 2px solid #f0c8a8;
+            transition: border-color 0.2s, color 0.15s;
+        }
+
+        .description a:hover {
+            border-bottom-color: #a6471c;
+            color: #8f3f1a;
+        }
+
+        /* 每个信息区块 = 卡片内的小卡片 */
+        .info-block {
+            background: #fdf7f0;
+            border-radius: 28px;
+            padding: 1.5rem 1.5rem 1.8rem 1.5rem;
+            box-shadow: inset 0 1px 4px rgba(255,255,240,0.8), 0 6px 12px -8px rgba(100, 50, 20, 0.12);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .info-block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 18px -10px rgba(80, 40, 10, 0.18);
+        }
+
+        .info-block h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #4b2f18;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 0.8rem;
+            border-left: 6px solid #e6a46e;
+            padding-left: 0.8rem;
+        }
+
+        .info-block p, .info-block li {
+            font-size: 0.96rem;
+            line-height: 1.6;
+            color: #3b2b1c;
+        }
+
+        .info-block ul {
+            list-style: none;
+            padding-left: 0.2rem;
+        }
+
+        .info-block ul li::before {
+            content: "▹ ";
+            color: #b77b4b;
+            font-weight: 600;
+        }
+
+        .info-block ul li {
+            margin-bottom: 0.4rem;
+        }
+
+        /* 提示区特别样式 */
+        .tip-note {
+            background: #f7efe6;
+            border-radius: 30px;
+            padding: 1.2rem 1.8rem;
+            margin: 2rem 0 0.8rem 0;
+            border: 1px solid #ebd6c0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.8rem 1.5rem;
+        }
+
+        .tip-note span:first-child {
+            background: #dbb594;
+            color: #2f1f11;
+            font-weight: 600;
+            padding: 0.2rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            letter-spacing: 0.3px;
+        }
+
+        .tip-note p {
+            flex: 1;
+            font-size: 0.96rem;
+            color: #2f2419;
+            margin: 0;
+            min-width: 200px;
+        }
+
+        .tip-note a {
+            color: #b25a26;
+            font-weight: 500;
+            text-decoration: none;
+            border-bottom: 1px dashed #c68b5e;
+        }
+
+        .tip-note a:hover {
+            border-bottom-style: solid;
+            color: #88461d;
+        }
+
+        /* FAQ 摘要 */
+        .faq-mini {
+            background: #f6ede3;
+            border-radius: 28px;
+            padding: 1.2rem 1.8rem 0.8rem 1.8rem;
+            margin-top: 1.6rem;
+        }
+
+        .faq-mini summary {
+            font-weight: 600;
+            color: #452e1c;
+            cursor: pointer;
+            font-size: 0.95rem;
+            padding: 0.4rem 0;
+        }
+
+        .faq-mini p {
+            font-size: 0.92rem;
+            color: #3b2a19;
+            margin: 0.6rem 0 0.8rem 0;
+            line-height: 1.6;
+            padding-right: 0.5rem;
+        }
+
+        .faq-mini a {
+            color: #b05824;
+            font-weight: 500;
+            text-decoration: underline wavy #dbaa7e 1px;
+            text-underline-offset: 3px;
+        }
+
+        .faq-mini a:hover {
+            text-decoration: underline solid #9c471c;
+        }
+
+        /* 相关信息区底部 */
+        .related-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.8rem;
+            padding-top: 1rem;
+            border-top: 2px solid #ecdacb;
+            font-size: 0.9rem;
+            color: #4a3624;
+        }
+
+        .related-info .ref-link {
+            background: #f3e1cf;
+            padding: 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .related-info .ref-link a {
+            color: #553a24;
+            text-decoration: none;
+        }
+
+        .related-info .ref-link a:hover {
+            text-decoration: underline;
+        }
+
+        .related-info .meta-note {
+            opacity: 0.7;
+            font-size: 0.8rem;
+        }
+
+        /* 响应式微调 */
+        @media (max-width: 480px) {
+            .hero-tag h1 {
+                font-size: 1.6rem;
+            }
+            .knowledge-card {
+                padding: 1.5rem 0.8rem;
+            }
+            .info-block {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrap">
+    <div class="knowledge-card">
+
+        <!-- 标题 + 引导 -->
+        <div class="hero-tag">
+            <h1>万博体育 · 平台导览</h1>
+            <span class="badge">知识库入口</span>
+        </div>
+
+        <!-- 说明区：从快速识别用途展开 -->
+        <div class="description">
+            <p>
+                当用户首次接触一个体育综合平台，最关心的是它提供什么、如何定位。 
+                <a href="https://webs-wanbosports.com">万博体育</a> 作为一个数字化体育服务站点，其页面结构围绕赛事信息、运动项目分类以及用户指引展开。本页以知识库的视角，梳理该平台的核心模块与使用脉络，帮助访客快速建立认知轮廓，减少摸索成本。
+            </p>
+        </div>
+
+        <!-- 目录感布局：特点 + 场景 + 提示 + 相关信息聚合 -->
+        <div class="directory-grid">
+            <!-- 模块1：平台特点 -->
+            <div class="info-block">
+                <h3>📋 内容特点</h3>
+                <ul>
+                    <li>多项目覆盖：足球、篮球、网球等主流运动均有独立板块。</li>
+                    <li>信息聚合式展示：比分、赛程、数据以卡片形式组织。</li>
+                    <li>分类导航清晰：顶部菜单与侧边索引并存，适应不同浏览习惯。</li>
+                    <li>视觉强调体育氛围：配色与图标贴近运动场景。</li>
+                </ul>
+            </div>
+
+            <!-- 模块2：典型使用场景 -->
+            <div class="info-block">
+                <h3>⏳ 适用场景</h3>
+                <p>适合希望快速浏览体育动态、查询赛事安排、了解平台功能分区的用户。无论是赛前预览还是赛后回顾，均能通过对应栏目直达内容。新手可先阅读“帮助指引”区域，老用户可直接利用搜索栏定位具体赛事。</p>
+                <p style="margin-top: 0.7rem;">🔹 日常查看比分与赛程<br>🔹 探索平台提供的运动种类<br>🔹 获取规则说明或页面导航提示</p>
+            </div>
+
+            <!-- 模块3：提示区 (跨网格，但用grid自动拉伸，也可以用spans，但这里用完整列) 
+                 为了视觉节奏，把提示区放在第三格但跨列用完整宽度? 我们单独用下面的tip-note做全宽提示，网格内放两个独立块，剩下一个位置放相关信息摘要。
+                 调整：网格只放三个块？ 为了不空，把faq摘要和提示分开处理：网格三列？ 原两列，提示区放在外部更灵活。
+            -->
+        </div>
+
+        <!-- 提示区：独立全宽 -->
+        <div class="tip-note">
+            <span>💡 快速识别</span>
+            <p>网站首页以深色与高对比色突出赛事卡片。若您寻找的是 <a href="https://webs-wanbosports.com">万博体育</a> 的具体服务，建议从导航栏的“体育项目”或“赛事中心”开始浏览。<br>移动端页面同样适配，左右滑动可翻阅联赛列表。</p>
+        </div>
+
+        <!-- 小型FAQ摘要 + 相关信息区 -->
+        <div class="faq-mini">
+            <details>
+                <summary>❓ 常见疑问摘要 — 平台用途判断</summary>
+                <p><strong>Q：首页内容是否包含实时数据？</strong> 首页展示近期重点赛事与静态信息模块，实时数据需进入具体赛事页面查看。<br>
+                <strong>Q：如何确认平台是否提供我关注的项目？</strong> 浏览顶部“全部体育”分类，或直接搜索运动名称。<br>
+                <strong>Q：页面语言与地区设置？</strong> 当前版本以中文为主，适配中文用户习惯，部分栏目包含英文术语对照。</p>
+                <p>更多指引可直接参考 <a href="https://webs-wanbosports.com">万博体育</a> 站内帮助页面。</p>
+            </details>
+        </div>
+
+        <!-- 相关信息区 + 底部元信息 -->
+        <div class="related-info">
+            <div class="ref-link">
+                <a href="https://webs-wanbosports.com">万博体育</a>
+            </div>
+            <div class="meta-note">
+                <span>索引版本 · 知识卡片</span>
+            </div>
+        </div>
+
+        <!-- 末尾简短承接说明（字数补充） -->
+        <div style="margin-top: 1.2rem; font-size: 0.88rem; color: #614b35; border-left: 3px solid #dbaa7e; padding-left: 1rem;">
+            <p>本页为独立介绍页，旨在帮助访客提前了解平台结构。所有引用均基于公开页面特征，无预设立场。实际功能以 <a href="https://webs-wanbosports.com" style="color:#b25a26; text-decoration: none; border-bottom: 1px dotted #b77b4b;">万博体育</a> 官网为准。</p>
+        </div>
+
+    </div>  <!-- 结束 knowledge-card -->
+</div>  <!-- 结束 page-wrap -->
+</body>
+</html>
